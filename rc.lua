@@ -22,6 +22,7 @@ require("awful.hotkeys_popup.keys")
 -- Widgets
 local battery_widget = require("awesome-wm-widgets.battery-widget.battery")
 local mpdarc_widget = require("awesome-wm-widgets.mpdarc-widget.mpdarc")
+local volumearc_widget = require("awesome-wm-widgets.volume-widget.volume")
 
 local vert_sep_10 = wibox.widget {
 	widget = wibox.widget.separator,
@@ -233,6 +234,10 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
+            volumearc_widget{
+				widget_type = 'arc'
+			},
+            vert_sep_2,
             mpdarc_widget,
             vert_sep_2,
             battery_widget(),
