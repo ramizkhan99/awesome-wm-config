@@ -20,7 +20,7 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 require("awful.hotkeys_popup.keys")
 
 -- Widgets
-local battery_widget = require("awesome-wm-widgets.battery-widget.battery")
+local battery_widget = require("awesome-wm-widgets.batteryarc-widget.batteryarc")
 local mpdarc_widget = require("awesome-wm-widgets.mpdarc-widget.mpdarc")
 local volumearc_widget = require("awesome-wm-widgets.volume-widget.volume")
 local mpris_widget = require("awesome-wm-widgets.mpris-widget")
@@ -279,6 +279,7 @@ awful.screen.connect_for_each_screen(function(s)
             vert_sep_10_inv,
             battery_widget(),
             mytextclock,
+            vert_sep_10_inv,
             s.mylayoutbox,
         },
     }
