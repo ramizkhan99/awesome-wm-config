@@ -23,6 +23,10 @@ require("awful.hotkeys_popup.keys")
 local battery_widget = require("awesome-wm-widgets.battery-widget.battery")
 local mpdarc_widget = require("awesome-wm-widgets.mpdarc-widget.mpdarc")
 local volumearc_widget = require("awesome-wm-widgets.volume-widget.volume")
+local mpris_widget = require("awesome-wm-widgets.mpris-widget")
+local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness")
+local cpu_widget = require("awesome-wm-widgets.cpu-widget.cpu-widget")
+local calendar_widget = require("awesome-wm-widgets.calendar-widget.calendar")
 
 local vert_sep_10 = wibox.widget {
 	widget = wibox.widget.separator,
@@ -32,12 +36,21 @@ local vert_sep_10 = wibox.widget {
 	visible = true,
 }
 
+local vert_sep_10_inv = wibox.widget {
+	widget = wibox.widget.separator,
+	orientation = "vertical",
+	forced_width = 10,
+	visible = true,
+	opacity = 0,
+}
+
 local vert_sep_2 = wibox.widget {
 	widget = wibox.widget.separator,
 	orientation = "vertical",
 	forced_width = 2,
 	color = "#ffffff",
-	visible = false,
+	visible = true,
+	opacity = 0,
 }
 
 -- {{{ Error handling
@@ -131,6 +144,16 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 -- {{{ Wibar
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock()
+
+local cw = calendar_widget({
+	placement = 'top_right',
+	radius = 10
+})
+
+mytextclock:connect_signal("button::press",
+	function(_, _, _, button)
+		if button == 1 then cw.toggle() end
+	end)
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -234,15 +257,23 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
+            cpu_widget(),
+            vert_sep_10_inv,
+            brightness_widget {
+				program = 'brightnessctl',
+				step = 2,
+				timeout = 60
+			},
+			vert_sep_2,
             volumearc_widget{
 				widget_type = 'arc'
 			},
-            vert_sep_2,
-            mpdarc_widget,
-            vert_sep_2,
-            battery_widget(),
+			vert_sep_10_inv,
+            mpris_widget(),
+            --mpdarc_widget,
             vert_sep_10,
-            wibox.widget.textclock(),
+            battery_widget(),
+            mytextclock,
             s.mylayoutbox,
         },
     }
