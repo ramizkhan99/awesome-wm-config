@@ -27,6 +27,7 @@ local mpris_widget = require("awesome-wm-widgets.mpris-widget")
 local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness")
 local cpu_widget = require("awesome-wm-widgets.cpu-widget.cpu-widget")
 local calendar_widget = require("awesome-wm-widgets.calendar-widget.calendar")
+local net_widgets = require("net_widgets")
 
 local vert_sep_10 = wibox.widget {
 	widget = wibox.widget.separator,
@@ -87,6 +88,7 @@ beautiful.init(gears.filesystem.get_configuration_dir() .. "custom1.lua")
 terminal = "alacritty"
 editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " -e " .. editor
+net_wireless = net_widgets.wireless({ interface = "wlo1" })
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -264,6 +266,8 @@ awful.screen.connect_for_each_screen(function(s)
             wibox.widget.systray(),
             cpu_widget(),
             vert_sep_10_inv,
+            net_wireless,
+            vert_sep_10_inv,
             brightness_widget {
 				program = 'brightnessctl',
 				step = 2,
@@ -371,7 +375,7 @@ globalkeys = gears.table.join(
               {description = "increase the number of columns", group = "layout"}),
     awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1, nil, true)    end,
               {description = "decrease the number of columns", group = "layout"}),
-    awful.key({ modkey,           }, "space", function () awful.layout.inc( 1)                end,
+    awful.key({ modkey, "Control"  }, "space", function () awful.layout.inc( 1)                end,
               {description = "select next", group = "layout"}),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(-1)                end,
               {description = "select previous", group = "layout"}),
@@ -389,12 +393,19 @@ globalkeys = gears.table.join(
               {description = "restore minimized", group = "client"}),
 
     -- Prompt
-    awful.key({ modkey },            "space",     function () awful.util.spawn("dmenu_run") end,
+    awful.key({ modkey },            "space",     function () 
+    	awful.util.spawn("rofi -modi drun -show drun") 
+    end,
               {description = "run prompt", group = "ramiz"}),
 
     awful.key({ modkey },            "b",     function () awful.util.spawn("microsoft-edge-beta") end,
               {description = "Microsoft Edge", group = "ramiz"}),
 
+    awful.key({ modkey },            "Tab",     function () awful.util.spawn("rofi -modi combi -show combi") end,
+              {description = "combi menu", group = "ramiz"}),
+
+    awful.key({ modkey, "Shift" },   "n",     function () awful.util.spawn("brave --incognito youtube.com") end,
+              {description = "Brave incognito", group = "ramiz"}),
 
     awful.key({ modkey }, "x",
               function ()
@@ -648,7 +659,7 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- Rounded corners
 client.connect_signal("manage", function (c)
 	c.shape = function(cr,w,h)
-		gears.shape.rounded_rect(cr,w,h,20)
+		gears.shape.rounded_rect(cr,w,h,10)
 	end
 end)
 
