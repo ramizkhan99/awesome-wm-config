@@ -25,7 +25,7 @@ theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#ffffff"
 
 theme.useless_gap   = dpi(5)
-theme.border_width  = dpi(3)
+theme.border_width  = dpi(5)
 theme.border_normal = "#00000000"
 theme.border_focus  = "#e9a6a6"
 theme.border_marked = "#91231c"
@@ -99,7 +99,7 @@ theme.titlebar_maximized_button_focus_active  = themes_path.."default/titlebar/m
 
 --Wallpaper
 --theme.wallpaper = themes_path.."default/background.png"
-theme.wallpaper = "~/Pictures/wallpaper2.jpg"
+theme.wallpaper = "~/Pictures/firewatch-dark-minimal.jpg"
 
 -- You can use your own layout icons like this:
 theme.layout_fairh = themes_path.."default/layouts/fairhw.png"
