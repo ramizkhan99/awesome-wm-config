@@ -133,7 +133,7 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
 								  }
 						})
 
-mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
+mylauncher = awful.widget.launcher({ image = beautiful.manjaro_icon,
 									 menu = mymainmenu })
 
  --Menubar configuration
@@ -406,6 +406,10 @@ globalkeys = gears.table.join(
 
     awful.key({ modkey, "Shift" },   "n",     function () awful.util.spawn("brave --incognito youtube.com") end,
               {description = "Brave incognito", group = "ramiz"}),
+
+	awful.key({ modkey, "Mod1" },   "l",     function () awful.util.spawn("i3lock-fancy") end,
+              {description = "Lock screen", group = "ramiz"}),
+
 
     awful.key({ modkey }, "x",
               function ()

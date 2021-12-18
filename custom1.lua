@@ -13,6 +13,8 @@ local theme = {}
 
 theme.font          = "noto sans 8"
 
+theme.manjaro_icon  = "/usr/share/icons/manjaro/white/white.svg"
+
 theme.bg_normal     = "#1d2021"
 theme.bg_focus      = "#3c3836"
 theme.bg_urgent     = "#ff0000"
