@@ -88,7 +88,7 @@ beautiful.init(gears.filesystem.get_configuration_dir() .. "custom1.lua")
 terminal = "alacritty"
 editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " -e " .. editor
-net_wireless = net_widgets.wireless({ interface = "wlo1" })
+--net_wireless = net_widgets.wireless({ interface = "wlo1" })
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -266,8 +266,8 @@ awful.screen.connect_for_each_screen(function(s)
             wibox.widget.systray(),
             cpu_widget(),
             vert_sep_10_inv,
-            net_wireless,
-            vert_sep_10_inv,
+            --net_wireless,
+            --vert_sep_10_inv,
             brightness_widget {
 				program = 'brightnessctl',
 				step = 2,
@@ -407,7 +407,7 @@ globalkeys = gears.table.join(
     awful.key({ modkey, "Shift" },   "n",     function () awful.util.spawn("brave --incognito youtube.com") end,
               {description = "Brave incognito", group = "ramiz"}),
 
-	awful.key({ modkey, "Mod1" },   "l",     function () awful.util.spawn("i3lock-fancy") end,
+	awful.key({ modkey, "Mod1" },   "l",     function () awful.util.spawn("i3lock-fancy-multimonitor -b=0x16 -n") end,
               {description = "Lock screen", group = "ramiz"}),
 
 
@@ -670,6 +670,7 @@ end)
 -- Autostart apps
 awful.spawn.with_shell("~/.screenlayout/setup2.sh")
 awful.spawn.with_shell("picom --experimental-backends")
+awful.spawn.with_shell("nm-applet")
 --awful.spawn.with_shell("feh --bg-fill ~/Pictures/wallpaper1.jpg")
 
 -- Gaps
